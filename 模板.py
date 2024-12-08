@@ -23,30 +23,7 @@ def run(playwright):
 
     page.wait_for_load_state("networkidle")
 
-    path = r"D:/*/*/" # 修改为你的保存路径
-    title_list = []
-    for i in range(7, 38):
-        title_url = page.locator(f'xpath=//*[@id="list"]/dl/dd[{i}]/a').get_attribute(
-            "href"
-        ) # 获取每个标题的 url
-
-        title_list.append(url + title_url) # 拼接成完整的 url
-
-    for url in title_list:
-        page.goto(url)
-        page.wait_for_load_state("networkidle")
-        
-        title = page.locator(
-            f'xpath=//*[@id="wrapper"]/div[4]/div/div[2]/h1'
-        ).inner_text()
-
-        text = page.locator(f'xpath=//*[@id="content"]').inner_text()
-
-        q = "**********"
-        text = text.replace(q, "") # 替换掉不需要的内容
-
-        with open(path + title + ".txt", "w", newline="", encoding="utf-8") as f:
-            f.write(text)
+    
 
     # 关闭浏览器连接
     browser.close()
